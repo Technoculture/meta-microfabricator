@@ -1,0 +1,11 @@
+[Unit]
+Description=Microfabricator Script
+After=dropbear.service systemd-logind.service multi-user.target graphical.target
+
+
+[Service]
+Environment="QT_QPA_EGLFS_HIDECURSOR=1"
+ExecStart=/usr/bin/MicrofabricatorHMI -platform eglfs
+
+[Install]
+WantedBy=multi-user.target

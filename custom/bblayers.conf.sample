@@ -1,0 +1,21 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /pavithra/rpi4/poky-kirkstone/meta \
+  /pavithra/rpi4/poky-kirkstone/meta-poky \
+  /pavithra/rpi4/poky-kirkstone/meta-yocto-bsp \
+  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-oe \
+  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-multimedia \
+  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-networking \
+  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-python \
+  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-perl \
+  /pavithra/rpi4/poky-kirkstone/meta-qt5 \
+  /pavithra/rpi4/poky-kirkstone/meta-raspberrypi \
+  /pavithra/rpi4/poky-kirkstone/meta-security \
+  /pavithra/rpi4/poky-kirkstone/meta-microfabricator \
+  "
