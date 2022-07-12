@@ -6,16 +6,16 @@ BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  /pavithra/rpi4/poky-kirkstone/meta \
-  /pavithra/rpi4/poky-kirkstone/meta-poky \
-  /pavithra/rpi4/poky-kirkstone/meta-yocto-bsp \
-  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-oe \
-  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-multimedia \
-  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-networking \
-  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-python \
-  /pavithra/rpi4/poky-kirkstone/meta-openembedded/meta-perl \
-  /pavithra/rpi4/poky-kirkstone/meta-qt5 \
-  /pavithra/rpi4/poky-kirkstone/meta-raspberrypi \
-  /pavithra/rpi4/poky-kirkstone/meta-security \
-  /pavithra/rpi4/poky-kirkstone/meta-microfabricator \
+  ${TOPDIR}/../../poky-kirkstone/meta \
+  ${TOPDIR}/../../poky-kirkstone/meta-poky \
+  ${TOPDIR}/../../poky-kirkstone/meta-yocto-bsp \
+  ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-oe \
+  ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-multimedia \
+  ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-networking \
+  ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-python \
+  ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-perl \
+  ${TOPDIR}/../../poky-kirkstone/meta-qt5 \
+  ${TOPDIR}/../../poky-kirkstone/meta-raspberrypi \
+  ${TOPDIR}/../../poky-kirkstone/meta-security \
+  ${TOPDIR}/../../poky-kirkstone/meta-microfabricator \
   "

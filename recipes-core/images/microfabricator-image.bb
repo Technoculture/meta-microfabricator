@@ -1,4 +1,4 @@
-DESCRIPTION = "Fairly minimal image for internet radio app (cuteradio)"
+DESCRIPTION = "Fairly minimal image for microfabricator app (microfabricator)"
 LICENSE = "MIT"
 
 inherit core-image

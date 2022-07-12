@@ -1,4 +1,4 @@
-SUMMARY = "This program providing a touch screen interface for the :wMicrofabricator 4S machine"
+SUMMARY = "This program providing a touch screen interface for the Microfabricator 4S machine"
 AUTHOR = "Satyam Tiwary"
 HOMEPAGE = "Local Directory"
 

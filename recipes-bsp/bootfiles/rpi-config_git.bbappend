@@ -1,6 +1,4 @@
-# Enable audio subsystem in kernel and load kernel modules for sound (snd_*)
-# at boot time. Loading sound modules through /etc/modules is too late such
-# that sound doesn't work.
+# Enable option to detect the display automatically
 
 do_deploy:append() {
     echo "# Enable display and gpu driver" >> ${DEPLOYDIR}/bootfiles/config.txt

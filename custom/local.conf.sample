@@ -26,10 +26,7 @@ IMAGE_INSTALL:append = " openssh-sftp-server sudo python3 python3-pip rpi-gpio r
 IMAGE_FEATURES:append = " ssh-server-openssh"
 
 # Choose the board you are building for
-#MACHINE = "raspberrypi0-wifi"
-#MACHINE = "raspberrypi2"
 MACHINE = "raspberrypi4"
-#MACHINE = "raspberrypi-cm3"
 
 KERNEL_IMAGETYPE = "zImage"
 
@@ -57,9 +54,6 @@ PACKAGE_CLASSES = "package_ipk"
 SDKMACHINE = "x86_64"
 
 # for no root passwd uncomment the following and comment the two extra user lines
-#EXTRA_IMAGE_FEATURES = "debug-tweaks"
-#IMAGE_INSTALL:append = " mingetty " 
-#IMAGE_FEATURE:remove = "psplash"
 IMAGE_FEATURES:remove = "splash"
 
 USER:CLASSES = "image-mklibs image-prelink"
