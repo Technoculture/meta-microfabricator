@@ -16,6 +16,5 @@ BBLAYERS ?= " \
   ${TOPDIR}/../../poky-kirkstone/meta-openembedded/meta-perl \
   ${TOPDIR}/../../poky-kirkstone/meta-qt5 \
   ${TOPDIR}/../../poky-kirkstone/meta-raspberrypi \
-  ${TOPDIR}/../../poky-kirkstone/meta-security \
   ${TOPDIR}/../../poky-kirkstone/meta-microfabricator \
   "
