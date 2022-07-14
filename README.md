@@ -1,2 +1,2 @@
 # meta-microfabricator
-Yocto meta layer for Qt Microfabricator
+Yocto meta layer for Microfabricator
