@@ -1,0 +1,12 @@
+[Unit]
+Description=Splash screen
+DefaultDependencies=no
+After=local-fs.target
+RequiresMountsFor=/run
+
+[Service]
+ExecStart=/usr/bin/omxplayer -b /lib/systemd/system/logo.mp4
+RemainAfterExit=no
+
+[Install]
+WantedBy=sysinit.target

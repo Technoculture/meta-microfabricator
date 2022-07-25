@@ -17,6 +17,8 @@ NATIVE_SYSTEMD_SUPPORT = "1"
 SRC_URI = "\
     git://github.com/TechnocultureResearch/Microfabricator-HMI.git;protocol=http;branch=v1 \
     file://microfabricator.service \
+     file://customsplash.service \
+     file://logo.mp4 \
 "
 #SRC_URI = " file://Microfabricator-HMI/"
 #SRC_URI += " file://microfabricator"
@@ -29,13 +31,15 @@ DEPENDS = "qtmultimedia qtcharts qtserialport"
 
 
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE:${PN} = "microfabricator.service"
+SYSTEMD_SERVICE:${PN} = "customsplash.service microfabricator.service"
 
 S = "${WORKDIR}/git"
 
 do_install:append() {
   install -d ${D}${systemd_unitdir}/system
   install -m 0660 ${WORKDIR}/microfabricator.service  ${D}${systemd_unitdir}/system/
+  install -m 0660 ${WORKDIR}/customsplash.service  ${D}${systemd_unitdir}/system/
+  install -m 0660 ${WORKDIR}/logo.mp4  ${D}${systemd_unitdir}/system/
 }
 
 

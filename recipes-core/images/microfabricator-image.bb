@@ -3,7 +3,7 @@ LICENSE = "MIT"
 
 inherit core-image
 
-DEPENDS += "rpi-bootfiles"
+DEPENDS += "rpi-bootfiles "
 
 IMAGE_FEATURES += "\
     splash \
