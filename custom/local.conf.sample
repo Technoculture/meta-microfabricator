@@ -54,7 +54,10 @@ PACKAGE_CLASSES = "package_ipk"
 SDKMACHINE = "x86_64"
 
 # for no root passwd uncomment the following and comment the two extra user lines
-IMAGE_FEATURES:remove = "splash"
+#IMAGE_FEATURES:remove = "splash"
+IMAGE_INSTALL:append = " psplash"
+IMAGE_INSTALL:append = " omxplayer"
+#IMAGE_FEATURES += " splash "
 
 USER:CLASSES = "image-mklibs image-prelink"
 PATCHRESOLVE = "noop"
