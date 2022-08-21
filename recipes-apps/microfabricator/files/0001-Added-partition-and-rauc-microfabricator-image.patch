@@ -1,0 +1,37 @@
+From 23fd7cbed65e6c187e9387306550149132512e92 Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Sun, 21 Aug 2022 23:39:34 +0530
+Subject: [PATCH 1/1] Added partition and rauc microfabricator image
+
+---
+ meta-rauc-raspberrypi/recipes-core/bundles/update-bundle.bb | 2 +-
+ meta-rauc-raspberrypi/wic/sdimage-dual-raspberrypi.wks      | 4 ++++
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+ create mode 100644 meta-rauc-raspberrypi/wic/sdimage-dual-raspberrypi.wks
+
+diff --git a/meta-rauc-raspberrypi/recipes-core/bundles/update-bundle.bb b/meta-rauc-raspberrypi/recipes-core/bundles/update-bundle.bb
+index 498b948..2f044e3 100644
+--- a/meta-rauc-raspberrypi/recipes-core/bundles/update-bundle.bb
++++ b/meta-rauc-raspberrypi/recipes-core/bundles/update-bundle.bb
+@@ -6,7 +6,7 @@ RAUC_BUNDLE_COMPATIBLE = "RaspberryPi4"
+ RAUC_BUNDLE_VERSION = "v20200703"
+ RAUC_BUNDLE_DESCRIPTION = "RAUC Demo Bundle"
+ RAUC_BUNDLE_SLOTS = "rootfs" 
+-RAUC_SLOT_rootfs = "core-image-minimal"
++RAUC_SLOT_rootfs = "microfabricator-image"
+ RAUC_SLOT_rootfs[fstype] = "ext4"
+ 
+ RAUC_KEY_FILE = "${THISDIR}/files/development-1.key.pem"
+diff --git a/meta-rauc-raspberrypi/wic/sdimage-dual-raspberrypi.wks b/meta-rauc-raspberrypi/wic/sdimage-dual-raspberrypi.wks
+new file mode 100644
+index 0000000..2948985
+--- /dev/null
++++ b/meta-rauc-raspberrypi/wic/sdimage-dual-raspberrypi.wks
+@@ -0,0 +1,4 @@
++part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 4096 --size 100
++part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_A --align 4096
++part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label rootfs_B --align 4096
++part /home --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/home --ondisk mmcblk0 --fstype=ext4 --label homefs --align 1024 --size 500 --fsoptions "x-systemd.growfs"
+-- 
+2.25.1
+

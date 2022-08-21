@@ -1,0 +1,45 @@
+From 81ec7b800183853aaa69800c7347946d606c6858 Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Sun, 21 Aug 2022 23:41:42 +0530
+Subject: [PATCH 1/1] Modified wget command to download rust libraries
+
+---
+ bitbake/lib/bb/fetch2/wget.py | 2 +-
+ meta/conf/layer.conf          | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/bitbake/lib/bb/fetch2/wget.py b/bitbake/lib/bb/fetch2/wget.py
+index b3a3de571a..5bb083745e 100644
+--- a/bitbake/lib/bb/fetch2/wget.py
++++ b/bitbake/lib/bb/fetch2/wget.py
+@@ -88,7 +88,7 @@ class Wget(FetchMethod):
+         if not ud.localfile:
+             ud.localfile = d.expand(urllib.parse.unquote(ud.host + ud.path).replace("/", "."))
+ 
+-        self.basecmd = d.getVar("FETCHCMD_wget") or "/usr/bin/env wget -t 2 -T 30 --passive-ftp"
++        self.basecmd = d.getVar("FETCHCMD_wget") or "/usr/bin/env wget -t 2 -T 30 --passive-ftp --no-check-certificate"
+ 
+         if not self.check_certs(d):
+             self.basecmd += " --no-check-certificate"
+diff --git a/meta/conf/layer.conf b/meta/conf/layer.conf
+index ea57123601..bde8b9078a 100644
+--- a/meta/conf/layer.conf
++++ b/meta/conf/layer.conf
+@@ -7,12 +7,12 @@ BBFILE_COLLECTIONS += "core"
+ BBFILE_PATTERN_core = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_core = "5"
+ 
+-LAYERSERIES_CORENAMES = "kirkstone"
++LAYERSERIES_CORENAMES = "dunfell kirkstone"
+ 
+ # This should only be incremented on significant changes that will
+ # cause compatibility issues with other layers
+ LAYERVERSION_core = "14"
+-LAYERSERIES_COMPAT_core = "kirkstone"
++LAYERSERIES_COMPAT_core = "dunfell kirkstone"
+ 
+ BBLAYERS_LAYERINDEX_NAME_core = "openembedded-core"
+ 
+-- 
+2.25.1
+
