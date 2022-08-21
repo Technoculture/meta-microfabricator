@@ -4,7 +4,7 @@
 
 LICENSE_FLAGS_ACCEPTED = "commercial"
 
-DISTRO_FEATURES = "ext2 security systemd usbhost ${DISTRO_FEATURES_LIBC}"
+DISTRO_FEATURES = " rauc security systemd usbhost ${DISTRO_FEATURES_LIBC}"
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio sysvinit"
 
@@ -20,7 +20,10 @@ INIT_MANAGER = "systemd"
 
 MACHINE_FEATURES:remove = "apm vfat"
 
-IMAGE_FSTYPES = "tar.xz ext3 rpi-sdimg"
+IMAGE_FSTYPES="tar.bz2 ext4 wic.bz2 wic.bmap"
+IMAGE_INSTALL:append = " rauc"
+
+SDIMG_ROOTFS_TYPE="ext4"
 
 IMAGE_INSTALL:append = " openssh-sftp-server sudo python3 python3-pip rpi-gpio raspi-gpio"
 IMAGE_FEATURES:append = " ssh-server-openssh"
@@ -28,10 +31,10 @@ IMAGE_FEATURES:append = " ssh-server-openssh"
 # Choose the board you are building for
 MACHINE = "raspberrypi4"
 
-KERNEL_IMAGETYPE = "zImage"
+KERNEL_IMAGETYPE = "uImage"
 
 # uncomment for kernels < 5.6
-WIREGUARD_COMPAT = "1"
+#WIREGUARD_COMPAT = "1"
 
 #DISABLE_VC4GRAPHICS = "1"
 DISABLE_OVERSCAN = "1"
@@ -57,7 +60,6 @@ SDKMACHINE = "x86_64"
 #IMAGE_FEATURES:remove = "splash"
 IMAGE_INSTALL:append = " psplash"
 IMAGE_INSTALL:append = " omxplayer"
-#IMAGE_FEATURES += " splash "
 
 USER:CLASSES = "image-mklibs image-prelink"
 PATCHRESOLVE = "noop"
@@ -67,3 +69,26 @@ CONF_VERSION = "2"
 
 PACKAGECONFIG:append_pn:qtmultimedia = " gstreamer"
 GPU_MEM = "512"
+
+//Added rust example
+DISTRO_FEATURES += "mfab-status-led"
+
+//RAUC updater
+RPI_USE_U_BOOT = "1"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+WKS_FILE = "sdimage-dual-raspberrypi.wks"
+
+IMAGE_INSTALL:append = " kernel-image kernel-modules"
+IMAGE_INSTALL:append = " rauc-hawkbit-service"
+IMAGE_INSTALL:append = " rauc-hawkbit-updater"
+IMAGE_INSTALL:append = " rauc-hawkbit"
+
+
+
+#IMAGE_INSTALL:append = " nano"
+
+//Enable WiFi support
+DISTRO_FEATURES:append = " rauc wifi"
+IMAGE_INSTALL:append = " iw wpa-supplicant net-tools coreutils i2c-tools bridge-utils hostapd iptables linux-firmware-rpidistro-bcm43455"
+
+

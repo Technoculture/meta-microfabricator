@@ -1,0 +1,12 @@
+[Unit]
+Description=Splash screen
+DefaultDependencies=no
+After=local-fs.target systemd-logind.service multi-user.target
+RequiresMountsFor=/run
+
+[Service]
+ExecStart=/usr/bin/mfab-status-led
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target

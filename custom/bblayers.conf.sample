@@ -17,4 +17,7 @@ BBLAYERS ?= " \
   ${TOPDIR}/../../poky-kirkstone/meta-qt5 \
   ${TOPDIR}/../../poky-kirkstone/meta-raspberrypi \
   ${TOPDIR}/../../poky-kirkstone/meta-microfabricator \
+  ${TOPDIR}/../../poky-kirkstone/meta-rust \
+  ${TOPDIR}/../../poky-kirkstone/meta-rauc \
+  ${TOPDIR}/../../poky-kirkstone/meta-rauc-community/meta-rauc-raspberrypi \
   "

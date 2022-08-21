@@ -1,0 +1,12 @@
+[Unit]
+Description=RAUC hawkbit update service
+DefaultDependencies=no
+After=local-fs.target systemd-logind.service multi-user.target
+RequiresMountsFor=/run
+
+[Service]
+ExecStart=/usr/bin/rauc-hawkbit-updater -c /lib/systemd/system/config.conf
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target
