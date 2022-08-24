@@ -16,6 +16,7 @@ IMAGE_INSTALL += " \
     packagegroup-qml-basic \
     packagegroup-qml-multimedia \
     microfabricator \
+    mfab-status-led \
 "
 
 # Add an extra 0.5 GB of free space to the root filesystem
