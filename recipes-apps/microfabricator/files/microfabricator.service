@@ -1,6 +1,6 @@
 [Unit]
 Description=Microfabricator Script
-After=dropbear.service systemd-logind.service multi-user.target graphical.target
+After=dropbear.service systemd-logind.service multi-user.target graphical.target getty.target
 
 
 [Service]

@@ -1,0 +1,12 @@
+[Unit]
+Description=Fluent Bit
+Requires=network.target
+After=network.target
+
+[Service]
+Environment="AWS_ACCESS_KEY_ID=AKIAYJDOA5OLV7VPLE3H"
+Environment="AWS_SECRET_ACCESS_KEY=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"
+ExecStart=/usr/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf
+
+[Install]
+WantedBy=multi-user.target

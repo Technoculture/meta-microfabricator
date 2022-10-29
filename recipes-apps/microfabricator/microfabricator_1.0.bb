@@ -20,6 +20,7 @@ SRC_URI = "\
      file://customsplash.service \
      file://mfab-status-led.service \
      file://rauchawkbitupdate.service \
+     file://fluent-bit.service \
      file://config.conf \
      file://logo.mp4 \
 "
@@ -34,7 +35,7 @@ DEPENDS = "qtmultimedia qtcharts qtserialport mfab-status-led"
 
 RDEPENDS_packagegroup-custom-apps = "mfab-status-led"
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE:${PN} = "rauchawkbitupdate.service mfab-status-led.service customsplash.service microfabricator.service"
+SYSTEMD_SERVICE:${PN} = "rauchawkbitupdate.service mfab-status-led.service customsplash.service microfabricator.service fluent-bit.service"
 
 S = "${WORKDIR}/git"
 
@@ -44,6 +45,7 @@ do_install:append() {
   install -m 0660 ${WORKDIR}/customsplash.service  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/mfab-status-led.service  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/rauchawkbitupdate.service  ${D}${systemd_unitdir}/system/
+  install -m 0660 ${WORKDIR}/fluent-bit.service  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/logo.mp4  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/config.conf  ${D}${systemd_unitdir}/system/
 

@@ -70,10 +70,9 @@ CONF_VERSION = "2"
 PACKAGECONFIG:append_pn:qtmultimedia = " gstreamer"
 GPU_MEM = "512"
 
-//Added rust example
 DISTRO_FEATURES += "mfab-status-led"
 
-//RAUC updater
+
 RPI_USE_U_BOOT = "1"
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
 WKS_FILE = "sdimage-dual-raspberrypi.wks"
@@ -82,12 +81,13 @@ IMAGE_INSTALL:append = " kernel-image kernel-modules"
 IMAGE_INSTALL:append = " rauc-hawkbit-service"
 IMAGE_INSTALL:append = " rauc-hawkbit-updater"
 IMAGE_INSTALL:append = " rauc-hawkbit"
+IMAGE_INSTALL:append = " fluent-bit"
 
 
 
-#IMAGE_INSTALL:append = " nano"
 
-//Enable WiFi support
+IMAGE_INSTALL:append = " nano"
+
 DISTRO_FEATURES:append = " rauc wifi"
 IMAGE_INSTALL:append = " iw wpa-supplicant net-tools coreutils i2c-tools bridge-utils hostapd iptables linux-firmware-rpidistro-bcm43455"
 
