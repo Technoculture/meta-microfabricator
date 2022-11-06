@@ -5,7 +5,7 @@ After=local-fs.target systemd-logind.service multi-user.target
 RequiresMountsFor=/run
 
 [Service]
-ExecStart=/usr/bin/rauc-hawkbit-updater -c /lib/systemd/system/config.conf
+ExecStart=sh -c '/usr/bin/rauc-hawkbit-updater -c /lib/systemd/system/config.conf 2>&1 | tee /home/root/rauclog.txt'
 RemainAfterExit=no
 
 [Install]

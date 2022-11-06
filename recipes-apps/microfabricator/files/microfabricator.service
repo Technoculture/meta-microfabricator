@@ -5,7 +5,7 @@ After=dropbear.service systemd-logind.service multi-user.target graphical.target
 
 [Service]
 Environment="QT_QPA_EGLFS_HIDECURSOR=1"
-ExecStart=/usr/bin/MicrofabricatorHMI -platform eglfs
+ExecStart=sh -c '/usr/bin/MicrofabricatorHMI -platform eglfs 2>&1 | tee /home/root/microfablog.txt'
 
 [Install]
 WantedBy=multi-user.target

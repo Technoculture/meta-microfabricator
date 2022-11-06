@@ -5,7 +5,7 @@ After=local-fs.target systemd-logind.service multi-user.target
 RequiresMountsFor=/run
 
 [Service]
-ExecStart=/usr/bin/mfab-status-led
+ExecStart=sh -c '/usr/bin/mfab-status-led 2>&1 | tee /home/root/mfab-status-led.txt'
 RemainAfterExit=no
 
 [Install]
