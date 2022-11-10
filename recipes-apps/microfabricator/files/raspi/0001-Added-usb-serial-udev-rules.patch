@@ -1,0 +1,43 @@
+From 30c358392f52f852802abeee8d77be342e3054ab Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Wed, 9 Nov 2022 23:22:08 +0530
+Subject: [PATCH 1/1] Added usb serial udev rules
+
+---
+ recipes-core/udev/udev-rules-rpi.bb                  | 2 ++
+ recipes-core/udev/udev-rules-rpi/99-usb-serial.rules | 5 +++++
+ 2 files changed, 7 insertions(+)
+ create mode 100644 recipes-core/udev/udev-rules-rpi/99-usb-serial.rules
+
+diff --git a/recipes-core/udev/udev-rules-rpi.bb b/recipes-core/udev/udev-rules-rpi.bb
+index 42cfcdd..e1efc13 100644
+--- a/recipes-core/udev/udev-rules-rpi.bb
++++ b/recipes-core/udev/udev-rules-rpi.bb
+@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
+ SRC_URI = " \
+ 	file://99-com.rules \
+ 	file://can.rules \
++	file://99-usb-serial.rules \
+ 	"
+ 
+ S = "${WORKDIR}"
+@@ -15,4 +16,5 @@ do_install () {
+     install -d ${D}${sysconfdir}/udev/rules.d
+     install -m 0644 ${WORKDIR}/99-com.rules ${D}${sysconfdir}/udev/rules.d/
+     install -m 0644 ${WORKDIR}/can.rules ${D}${sysconfdir}/udev/rules.d/
++    install -m 0644 ${WORKDIR}/99-usb-serial.rules ${D}${sysconfdir}/udev/rules.d/
+ }
+diff --git a/recipes-core/udev/udev-rules-rpi/99-usb-serial.rules b/recipes-core/udev/udev-rules-rpi/99-usb-serial.rules
+new file mode 100644
+index 0000000..d486212
+--- /dev/null
++++ b/recipes-core/udev/udev-rules-rpi/99-usb-serial.rules
+@@ -0,0 +1,5 @@
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR001", SYMLINK+="LE365"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR002", SYMLINK+="LE405"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR003", SYMLINK+="LE435"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR011", SYMLINK+="Slider4S"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR012", SYMLINK+="Slider4M"
+-- 
+2.25.1
+

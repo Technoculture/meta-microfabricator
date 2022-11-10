@@ -1,0 +1,69 @@
+From 7dfb9f87f49286fe08320d1d162d4ba4d35238c2 Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Thu, 10 Nov 2022 09:51:09 +0530
+Subject: [PATCH 1/1] Added logrotate service
+
+---
+ .../logrotate/files/logrotate.conf                | 15 +++++++++++++++
+ .../logrotate/logrotate_3.20.1.bb                 |  9 ++++-----
+ 2 files changed, 19 insertions(+), 5 deletions(-)
+ create mode 100644 meta/recipes-extended/logrotate/files/logrotate.conf
+
+diff --git a/meta/recipes-extended/logrotate/files/logrotate.conf b/meta/recipes-extended/logrotate/files/logrotate.conf
+new file mode 100644
+index 0000000000..d3f8566476
+--- /dev/null
++++ b/meta/recipes-extended/logrotate/files/logrotate.conf
+@@ -0,0 +1,15 @@
++/home/root/microfablog.txt {
++        size 10M
++        create 700 root root
++        rotate 4
++}
++/home/root/rauclog.txt {
++        size 10M
++        create 700 root root
++        rotate 4
++}
++/home/root/mfab-status-led.txt {
++        size 10M
++        create 700 root root
++        rotate 4
++}
+diff --git a/meta/recipes-extended/logrotate/logrotate_3.20.1.bb b/meta/recipes-extended/logrotate/logrotate_3.20.1.bb
+index 35977535aa..f0010ce8bc 100644
+--- a/meta/recipes-extended/logrotate/logrotate_3.20.1.bb
++++ b/meta/recipes-extended/logrotate/logrotate_3.20.1.bb
+@@ -14,6 +14,7 @@ UPSTREAM_CHECK_URI = "https://github.com/${BPN}/${BPN}/releases"
+ UPSTREAM_CHECK_REGEX = "logrotate-(?P<pver>\d+(\.\d+)+).tar"
+ 
+ SRC_URI = "https://github.com/${BPN}/${BPN}/releases/download/${PV}/${BP}.tar.xz"
++SRC_URI += "file://logrotate.conf"
+ 
+ SRC_URI[sha256sum] = "742f6d6e18eceffa49a4bacd933686d3e42931cfccfb694d7f6369b704e5d094"
+ 
+@@ -49,10 +50,8 @@ OS_NAME = "Linux"
+ 
+ inherit autotools systemd
+ 
+-SYSTEMD_SERVICE:${PN} = "\
+-    ${BPN}.service \
+-    ${BPN}.timer \
+-"
++SYSTEMD_SERVICE:${PN} = "logrotate.service logrotate.timer"
++SYSTEMD_AUTO_ENABLE = "enable"
+ 
+ LOGROTATE_OPTIONS ?= ""
+ 
+@@ -64,7 +63,7 @@ do_install(){
+     oe_runmake install DESTDIR=${D} PREFIX=${D} MANDIR=${mandir}
+     mkdir -p ${D}${sysconfdir}/logrotate.d
+     mkdir -p ${D}${localstatedir}/lib
+-    install -p -m 644 ${S}/examples/logrotate.conf ${D}${sysconfdir}/logrotate.conf
++    install -p -m 644 ${WORKDIR}/logrotate.conf ${D}${sysconfdir}/logrotate.conf
+     install -p -m 644 ${S}/examples/btmp ${D}${sysconfdir}/logrotate.d/btmp
+     install -p -m 644 ${S}/examples/wtmp ${D}${sysconfdir}/logrotate.d/wtmp
+     touch ${D}${localstatedir}/lib/logrotate.status
+-- 
+2.25.1
+
