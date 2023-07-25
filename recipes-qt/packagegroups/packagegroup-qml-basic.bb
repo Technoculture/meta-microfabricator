@@ -13,5 +13,6 @@ RDEPENDS:${PN} = " \
     qtquickcontrols2 \
     qtserialport \
     qtcharts \
+    qtgraphicaleffects-qmlplugins \
 "
 

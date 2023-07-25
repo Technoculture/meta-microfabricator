@@ -1,7 +1,7 @@
 [Unit]
 Description=Fluent Bit
 Requires=network.target
-After=network.target
+After=network.target microfabricator.service
 
 [Service]
 Environment="AWS_ACCESS_KEY_ID=AKIAYJDOA5OLV7VPLE3H"

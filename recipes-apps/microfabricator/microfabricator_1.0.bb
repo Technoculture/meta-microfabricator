@@ -15,7 +15,7 @@ inherit systemd
 NATIVE_SYSTEMD_SUPPORT = "1"
 
 SRC_URI = "\
-    git://github.com/TechnocultureResearch/Microfabricator-HMI.git;protocol=http;branch=v1 \
+    git://github.com/TechnocultureResearch/Microfabricator-HMI.git;protocol=http;branch=v4 \
     file://microfabricator.service \
      file://customsplash.service \
      file://mfab-status-led.service \
@@ -27,11 +27,11 @@ SRC_URI = "\
 #SRC_URI = " file://Microfabricator-HMI/"
 #SRC_URI += " file://microfabricator"
 
-SRCREV = "230772158ecd531b8b3c08d0c5c460a93482230c"
+SRCREV = "61ee61d7cacfc926a523d4debe10b01761dca5dc"
 
 PV = "1.0+git${SRCREV}"
 
-DEPENDS = "qtmultimedia qtcharts qtserialport mfab-status-led"
+DEPENDS = "qtmultimedia qtcharts qtserialport mfab-status-led sqlite3 sqlite"
 
 RDEPENDS_packagegroup-custom-apps = "mfab-status-led"
 SYSTEMD_AUTO_ENABLE = "enable"
@@ -48,8 +48,12 @@ do_install:append() {
   install -m 0660 ${WORKDIR}/fluent-bit.service  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/logo.mp4  ${D}${systemd_unitdir}/system/
   install -m 0660 ${WORKDIR}/config.conf  ${D}${systemd_unitdir}/system/
+  install -m 0660 ${WORKDIR}/git/mfab.db ${D}${systemd_unitdir}/system/
+  mkdir   -p ${D}/usr/share/tcr
+  install -m 0660 ${WORKDIR}/git/mfab.db ${D}/usr/share/tcr/
 }
 
+FILES:${PN} += "/usr/share/tcr"
 
 FILES:${PN} += " \
     ${systemd_unitdir}/system/ \
