@@ -27,7 +27,7 @@ SRC_URI = "\
 #SRC_URI = " file://Microfabricator-HMI/"
 #SRC_URI += " file://microfabricator"
 
-SRCREV = "61ee61d7cacfc926a523d4debe10b01761dca5dc"
+SRCREV = "bbabc5cc8b1e61c3c9e1725d65bc84508e2e5de3"
 
 PV = "1.0+git${SRCREV}"
 

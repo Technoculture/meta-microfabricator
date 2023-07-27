@@ -33,11 +33,11 @@ index 0000000..d486212
 --- /dev/null
 +++ b/recipes-core/udev/udev-rules-rpi/99-usb-serial.rules
 @@ -0,0 +1,5 @@
-+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR001", SYMLINK+="LE365"
-+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR002", SYMLINK+="LE405"
-+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR003", SYMLINK+="LE435"
-+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR011", SYMLINK+="Slider4S"
-+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="TCR012", SYMLINK+="Slider4M"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="TCR001", SYMLINK+="LE365"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="TCR002", SYMLINK+="LE405"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="TCR003", SYMLINK+="LE435"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="TCR011", SYMLINK+="Slider4S"
++SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", ATTRS{serial}=="TCR012", SYMLINK+="Slider4M"
 -- 
 2.25.1
 
