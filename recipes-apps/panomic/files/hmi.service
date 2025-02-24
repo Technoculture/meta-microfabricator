@@ -1,0 +1,30 @@
+[Unit]
+Description=HMI Service
+Wants=weston.service
+After=weston.service
+
+[Service]
+Type=simple
+User=root
+
+Environment=XDG_RUNTIME_DIR=/run/user/0
+Environment=DISPLAY=:0
+Environment=SYSTEMD_LOG_LEVEL=debug
+
+WorkingDirectory=/home/weston
+# Create the directory and set permissions
+ExecStartPre=/bin/mkdir -p /run/user/0
+ExecStartPre=/bin/chown root:root /run/user/0
+ExecStartPre=/bin/chmod 700 /run/user/0
+ExecStartPre=/bin/sleep 15
+
+ExecStart=/usr/lib//hmi-ui-forge/hmi-ui-forge --no-sandbox
+
+Restart=on-failure
+RestartSec=10
+
+StandardError=journal
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
