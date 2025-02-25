@@ -7,6 +7,7 @@ DEPENDS += "rpi-bootfiles"
 
 IMAGE_FEATURES += "\
     splash \
+    ssh-server-dropbear \
     package-management \
 "
 CORE_IMAGE_EXTRA_INSTALL = " \
@@ -63,7 +64,8 @@ IMAGE_INSTALL = " \
         json-glib \
         nodejs \
         ${CORE_IMAGE_EXTRA_INSTALL} \
-        panomic \
 "
 
+# Add an extra 1 GB of free space to the root filesystem
+IMAGE_ROOTFS_EXTRA_SPACE = "10485760"
 
