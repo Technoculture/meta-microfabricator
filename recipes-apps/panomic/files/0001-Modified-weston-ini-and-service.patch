@@ -1,0 +1,214 @@
+From fe6364b6889c4674be3584fc463a2c6b9deb85e4 Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Tue, 25 Feb 2025 18:24:42 +0000
+Subject: [PATCH 1/1] Modified weston ini and service
+
+---
+ .../wayland/weston-init/weston.ini            | 102 +++++-------------
+ .../wayland/weston-init/weston.service        |  89 ++++-----------
+ 2 files changed, 45 insertions(+), 146 deletions(-)
+
+diff --git a/meta/recipes-graphics/wayland/weston-init/weston.ini b/meta/recipes-graphics/wayland/weston-init/weston.ini
+index 6bd5aef55a..a6229209e0 100644
+--- a/meta/recipes-graphics/wayland/weston-init/weston.ini
++++ b/meta/recipes-graphics/wayland/weston-init/weston.ini
+@@ -1,75 +1,27 @@
+-# configuration file for Weston
+-
+-[core]
+-#modules=xwayland.so,cms-colord.so
+-#shell=desktop-shell.so
+-#gbm-format=xrgb2101010
+-require-input=false
+-
+-#[shell]
+-#background-image=/usr/share/backgrounds/gnome/Aqua.jpg
+-#background-color=0xff002244
+-#background-type=tile
+-#clock-format=minutes
+-#panel-color=0x90ff0000
+-#locking=true
+-#animation=zoom
+-#startup-animation=fade
+-#binding-modifier=ctrl
+-#num-workspaces=6
+-#cursor-theme=whiteglass
+-#cursor-size=24
+-
+-#lockscreen-icon=/usr/share/icons/gnome/256x256/actions/lock.png
+-#lockscreen=/usr/share/backgrounds/gnome/Garden.jpg
+-#homescreen=/usr/share/backgrounds/gnome/Blinds.jpg
+-#animation=fade
+-
+-#[launcher]
+-#icon=/usr/share/icons/gnome/24x24/apps/utilities-terminal.png
+-#path=/usr/bin/gnome-terminal
+-
+-#[launcher]
+-#icon=/usr/share/icons/gnome/24x24/apps/utilities-terminal.png
+-#path=/usr/bin/weston-terminal
+-
+-#[launcher]
+-#icon=/usr/share/icons/hicolor/24x24/apps/google-chrome.png
+-#path=/usr/bin/google-chrome
+-
+-#[launcher]
+-#icon=/usr/share/icons/gnome/24x24/apps/arts.png
+-#path=/build/weston-0lEgCh/weston-1.11.0/weston-flower
+-
+-#[input-method]
+-#path=/usr/libexec/weston-keyboard
+-
+-#[output]
+-#name=LVDS1
+-#mode=1680x1050
+-#transform=90
+-#icc_profile=/usr/share/color/icc/colord/Bluish.icc
+-
+-#[output]
+-#name=VGA1
+-#mode=173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+-#transform=flipped
+-
+-#[output]
+-#name=X1
+-#mode=1024x768
+-#transform=flipped-90
+-
+-#[libinput]
+-#enable_tap=true
+-
+-#[touchpad]
+-#constant_accel_factor = 50
+-#min_accel_factor = 0.16
+-#max_accel_factor = 1.0
+-
+-[screen-share]
+-command=/usr/bin/weston --backend=rdp-backend.so --shell=fullscreen-shell.so --no-clients-resize
+-
+-#[xwayland]
+-#path=/usr/bin/Xwayland
++# configuration file for Weston
++
++#[autolaunch]
++#path=/usr/bin/your-application
++#[core]
++#backend=drm-backend.so          # Set the backend to drm-backend.so
++#xwayland=true                   # Keep XWayland enabled (optional, based on your use case)
++#require-input=false             # Set to true if you want to require input devices
++[core]
++xwayland=true
++backend=drm-backend.so
++shell=kiosk-shell.so
++xwayland=true
++idle-time=0
++use-g2d=0
++
++#[shell]
++#panel-position=top
++
++#[output]
++#name=HDMI-A-1
++#mode=1920x1080
++[xwayland]
++path=/usr/bin/Xwayland
++
++# Remove the [output] section to allow automatic detection
++# Weston will automatically detect the connected output devices
+diff --git a/meta/recipes-graphics/wayland/weston-init/weston.service b/meta/recipes-graphics/wayland/weston-init/weston.service
+index 80745998ed..77f00c9002 100644
+--- a/meta/recipes-graphics/wayland/weston-init/weston.service
++++ b/meta/recipes-graphics/wayland/weston-init/weston.service
+@@ -1,71 +1,18 @@
+-# This is a system unit for launching Weston with auto-login as the
+-# user configured here.
+-#
+-# Weston must be built with systemd support, and your weston.ini must load
+-# the plugin systemd-notify.so.
+-[Unit]
+-Description=Weston, a Wayland compositor, as a system service
+-Documentation=man:weston(1) man:weston.ini(5)
+-Documentation=http://wayland.freedesktop.org/
+-
+-# Make sure we are started after logins are permitted.
+-Requires=systemd-user-sessions.service
+-After=systemd-user-sessions.service
+-
+-# If Plymouth is used, we want to start when it is on its way out.
+-After=plymouth-quit-wait.service
+-
+-# D-Bus is necessary for contacting logind. Logind is required.
+-Wants=dbus.socket
+-After=dbus.socket
+-
+-# Ensure the socket is present
+-Requires=weston.socket
+-
+-# Since we are part of the graphical session, make sure we are started before
+-# it is complete.
+-Before=graphical.target
+-
+-# Prevent starting on systems without virtual consoles, Weston requires one
+-# for now.
+-ConditionPathExists=/dev/tty0
+-
+-[Service]
+-# Requires systemd-notify.so Weston plugin.
+-Type=notify
+-EnvironmentFile=/etc/default/weston
+-ExecStart=/usr/bin/weston --modules=systemd-notify.so
+-
+-# Optional watchdog setup
+-#TimeoutStartSec=60
+-#WatchdogSec=20
+-
+-# The user to run Weston as.
+-User=weston
+-Group=weston
+-
+-# Make sure the working directory is the users home directory
+-WorkingDirectory=/home/weston
+-
+-# Set up a full user session for the user, required by Weston.
+-PAMName=weston-autologin
+-
+-# A virtual terminal is needed.
+-TTYPath=/dev/tty7
+-TTYReset=yes
+-TTYVHangup=yes
+-TTYVTDisallocate=yes
+-
+-# Fail to start if not controlling the tty.
+-StandardInput=tty-fail
+-StandardOutput=journal
+-StandardError=journal
+-
+-# Log this user with utmp, letting it show up with commands 'w' and 'who'.
+-UtmpIdentifier=tty7
+-UtmpMode=user
+-
+-[Install]
+-# Note: If you only want weston to start on-demand, remove this line with a
+-# service drop file
+-WantedBy=graphical.target
++# /usr/lib/systemd/system/weston.service
++[Unit]
++Description=Weston Wayland Compositor
++After=systemd-user-sessions.service
++
++[Service]
++ExecStart=/usr/bin/weston --continue-without-input
++User=root
++ExecStartPre=/bin/mkdir -p /run/user/0
++ExecStartPre=/bin/chown root:root /run/user/0
++ExecStartPre=/bin/chmod 700 /run/user/0
++Environment=DISPLAY=:0
++Environment=XDG_RUNTIME_DIR=/run/user/0
++Restart=on-failure
++RestartSec=5
++
++[Install]
++WantedBy=multi-user.target
+-- 
+2.34.1
+

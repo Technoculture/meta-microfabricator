@@ -13,9 +13,9 @@ Environment=SYSTEMD_LOG_LEVEL=debug
 
 WorkingDirectory=/home/weston
 # Create the directory and set permissions
-ExecStartPre=/bin/mkdir -p /run/user/0
-ExecStartPre=/bin/chown root:root /run/user/0
-ExecStartPre=/bin/chmod 700 /run/user/0
+#ExecStartPre=/bin/mkdir -p /run/user/0
+#ExecStartPre=/bin/chown root:root /run/user/0
+#ExecStartPre=/bin/chmod 700 /run/user/0
 ExecStartPre=/bin/sleep 15
 
 ExecStart=/usr/lib//hmi-ui-forge/hmi-ui-forge --no-sandbox
